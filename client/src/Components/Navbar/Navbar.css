@@ -1,0 +1,8 @@
+.navbar .navBtn {
+    height: 2.5rem;
+    width: 5rem;
+    margin-top: auto;
+    text-transform: capitalize;
+    border-radius: 6px;
+    background-color: var(--primary-30);
+}

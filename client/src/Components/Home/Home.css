@@ -1,0 +1,89 @@
+.homeImgCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.homeDiv img {
+    width: 84%;
+}
+
+.homeDiv .homeInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.homeDiv .homeLoginBtn {
+    background: var(--primary-30);
+}
+
+.message {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.addBtn {
+    background: var(--primary-30);
+    position: fixed;
+    right: 10rem;
+    bottom: 5rem;
+    border-radius: 50%;
+    padding: 1rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    z-index: 2;
+}
+
+.addIcon {
+    transform: scale(1.2);
+    color: white;
+}
+
+/* CARDS */
+
+.cardContainer {
+    background: var(--primary-10);
+    min-height: 91vh;
+    min-height: 91vh;
+    max-height: auto;
+    padding: 1rem 2rem;
+}
+
+.emptyCardContainer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.filledCardContainer {
+    justify-content: flex-start;
+}
+
+.cards {
+    width: 20rem;
+    height: fit-content;
+    background: var(--primary-20);
+    text-align: justify;
+}
+
+/* MEDIA QUERY */
+
+@media only screen and (max-width: 1200px) {
+    .homeDiv img {
+        width: 100%;
+    }
+
+    .message {
+        font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .homeImgCont {
+        display: none;
+    }
+}
