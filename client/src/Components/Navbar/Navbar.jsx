@@ -83,8 +83,7 @@ export default function Navbar({ userData, setUserData }) {
     }
 
     useEffect(() => {
-        // console.log('useEffect runs');
-        fetch('http://localhost:5000/user/profile', {
+        fetch('https://taskmaster-api-em9c.onrender.com/user/profile', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -94,7 +93,7 @@ export default function Navbar({ userData, setUserData }) {
         })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             setUserData(data.data);
         });
     }, []);

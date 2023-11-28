@@ -36,7 +36,7 @@ function BasicModal(
         e.preventDefault();
         setIsEditing(false);
 
-        fetch('http://localhost:5000/todo/create_todo', {
+        fetch('https://taskmaster-api-em9c.onrender.com/todo/create_todo', {
             method: "POST",
             crossDomain: true,
             headers: {

@@ -18,7 +18,6 @@ import homeImg from '/login.png'
 
 
 const Home = ({ userData }) => {
-    // console.log(userData);
     const isLogin = localStorage.getItem("isLogin")
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -30,7 +29,6 @@ const Home = ({ userData }) => {
     const [allTodos, setAllTodos] = useState([]);
 
     const redirectToLogin = () => {
-        console.log(`Login clcked`);
         navigate('/login');
     }
 
@@ -46,13 +44,11 @@ const Home = ({ userData }) => {
     }
 
     const getAllTodos = () => {
-        console.log(`getAllTodos runs`);
-        return fetch(`http://localhost:5000/todo/getAllTodos/${userData?._id}`)
+        return fetch(`https://taskmaster-api-em9c.onrender.com/todo/getAllTodos/${userData?._id}`)
             .then((res) => {
                 let result = res.json();
                 return result;
             }).then((data) => {
-                // console.log(data);
                 setAllTodos(data.data);
             })
     }
@@ -64,7 +60,6 @@ const Home = ({ userData }) => {
     }, [userData]);
 
     const editBtnClick = (todoToEdit) => {
-        console.log(todoToEdit);
         handleOpen();
         setIsEditing(true);
 
@@ -77,7 +72,7 @@ const Home = ({ userData }) => {
 
     const handleEditTodo = (e) => {
         e.preventDefault();
-        fetch('http://localhost:5000/todo/editTodo', {
+        fetch('https://taskmaster-api-em9c.onrender.com/todo/editTodo', {
             method: "PATCH",
             crossDomain: true,
             headers: {
@@ -91,18 +86,17 @@ const Home = ({ userData }) => {
                 let result = res.json();
                 return result;
             }).then((data) => {
-                console.log(data);
+                // console.log(data);
                 getAllTodos();
             })
         handleClose();
     }
 
     const handleDeleteTodo = (id) => {
-        console.log(`handleDeleteTodo runs ${id}`)
         const confirmation = confirm('Are you sure you want to delete this todo!')
 
         if (confirmation) {
-            fetch('http://localhost:5000/todo/deleteTodo', {
+            fetch('https://taskmaster-api-em9c.onrender.com/todo/deleteTodo', {
                 method: "DELETE",
                 crossDomain: true,
                 headers: {
@@ -113,7 +107,7 @@ const Home = ({ userData }) => {
                 body: JSON.stringify({ id })
             })
                 .then((res) => res.json()).then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     getAllTodos();
                 })
         }
@@ -199,8 +193,8 @@ const Home = ({ userData }) => {
                                         </Grid>
                                     ))
                                 ) : (
-                                    <div style={{ color: 'var(--primary-30)',}}>
-                                        <Typography variant="h3" component="div" sx={{ mb: 3,fontWeight:'bold' }}>
+                                    <div style={{ color: 'var(--primary-30)', }}>
+                                        <Typography variant="h3" component="div" sx={{ mb: 3, fontWeight: 'bold' }}>
                                             Your todo list is empty.
                                         </Typography>
                                         <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
