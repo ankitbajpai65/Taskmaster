@@ -1,8 +1,18 @@
 .navbar .navBtn {
-    height: 2.5rem;
-    width: 5rem;
     margin-top: auto;
-    text-transform: capitalize;
-    border-radius: 6px;
-    background-color: var(--primary-30);
+}
+
+.logoImg{
+    height:1.6rem;
+    cursor: pointer;
+}
+
+.profileIcon path{
+    color: var(--primary-30);
+}
+
+@media only screen and (max-width: 900px) {
+    .logoImg{
+        display: none;
+    }
 }

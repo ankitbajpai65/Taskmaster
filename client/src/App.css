@@ -16,3 +16,19 @@ form {
     flex-direction: column;
     gap: 1rem;
 }
+
+.navbar .myBtn,
+.homeDiv .myBtn,
+.modal .myBtn {
+    height: 2.5rem;
+    width: 5rem;
+    text-transform: capitalize;
+    border-radius: 6px;
+    background-color: var(--primary-30);
+}
+
+.navbar .myBtn:hover,
+.homeDiv .myBtn:hover,
+.modal .myBtn:hover {
+    background: var(--primary-30);
+}

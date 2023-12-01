@@ -6,6 +6,7 @@ import {
     Button,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from "../../../config";
 import './Auth.css';
 
 const Signup = () => {
@@ -22,7 +23,7 @@ const Signup = () => {
     const handleSignupSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://taskmaster-api-em9c.onrender.com/user/register', {
+            const response = await fetch(`${baseUrl}/user/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

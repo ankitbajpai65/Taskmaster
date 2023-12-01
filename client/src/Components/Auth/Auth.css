@@ -1,8 +1,8 @@
 .authContainer {
     background: var(--primary-20);
-    height: 70%;
     text-align: center;
-    padding: 2.5rem;
+    padding: 3rem 2.5rem;
+    border-radius: 1rem;
 }
 
 .inputField {
@@ -31,4 +31,9 @@
 
 .authContainer .authNavBtn {
     color: var(--primary-30);
+    text-transform: capitalize;
+}
+
+.authContainer .authNavBtn:hover {
+    text-decoration: underline;
 }

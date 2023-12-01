@@ -13,9 +13,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BasicModal from '../Modal/BasicModal';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from "../../../config";
 import './Home.css'
 import homeImg from '/login.png'
-
 
 const Home = ({ userData }) => {
     const isLogin = localStorage.getItem("isLogin")
@@ -44,7 +44,7 @@ const Home = ({ userData }) => {
     }
 
     const getAllTodos = () => {
-        return fetch(`https://taskmaster-api-em9c.onrender.com/todo/getAllTodos/${userData?._id}`)
+        return fetch(`${baseUrl}/todo/getAllTodos/${userData?._id}`)
             .then((res) => {
                 let result = res.json();
                 return result;
@@ -72,7 +72,7 @@ const Home = ({ userData }) => {
 
     const handleEditTodo = (e) => {
         e.preventDefault();
-        fetch('https://taskmaster-api-em9c.onrender.com/todo/editTodo', {
+        fetch(`${baseUrl}/todo/editTodo`, {
             method: "PATCH",
             crossDomain: true,
             headers: {
@@ -86,7 +86,6 @@ const Home = ({ userData }) => {
                 let result = res.json();
                 return result;
             }).then((data) => {
-                // console.log(data);
                 getAllTodos();
             })
         handleClose();
@@ -96,7 +95,7 @@ const Home = ({ userData }) => {
         const confirmation = confirm('Are you sure you want to delete this todo!')
 
         if (confirmation) {
-            fetch('https://taskmaster-api-em9c.onrender.com/todo/deleteTodo', {
+            fetch(`${baseUrl}/todo/deleteTodo`, {
                 method: "DELETE",
                 crossDomain: true,
                 headers: {
@@ -107,7 +106,6 @@ const Home = ({ userData }) => {
                 body: JSON.stringify({ id })
             })
                 .then((res) => res.json()).then((data) => {
-                    // console.log(data);
                     getAllTodos();
                 })
         }
@@ -123,8 +121,9 @@ const Home = ({ userData }) => {
                             <img src={homeImg} alt="" />
                         </Grid>
                         <Grid item xs={12} md={6} className="homeInfo">
-                            <h1 className="message">Please Login to add and view todos!</h1>
-                            <Button variant="contained" onClick={redirectToLogin} className="homeLoginBtn">Login</Button>
+                            <h1 className="message1">Welcome to the Taskmaster</h1>
+                            <h2 className="message2">Unlock the full potential by logging in to add and view your todos.</h2>
+                            <Button variant="contained" sx={{mt:2}} onClick={redirectToLogin} className="myBtn">Login</Button>
                         </Grid>
                     </Grid>
                     :

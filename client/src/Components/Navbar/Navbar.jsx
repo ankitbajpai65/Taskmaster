@@ -4,7 +4,6 @@ import {
     AppBar,
     Toolbar,
     IconButton,
-    Typography,
     Button,
     InputBase,
     MenuItem,
@@ -19,6 +18,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from "../../../config";
 import './Navbar.css';
 
 const Search = styled('div')(({ theme }) => ({
@@ -63,9 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Navbar({ userData, setUserData }) {
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    // const [isLogin, setIsLogin] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const open = Boolean(anchorEl);
 
@@ -83,21 +81,20 @@ export default function Navbar({ userData, setUserData }) {
     }
 
     useEffect(() => {
-        fetch('https://taskmaster-api-em9c.onrender.com/user/profile', {
+        fetch(`${baseUrl}/user/profile`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem("token")}`, // Use Authorization header for sending the token
+                Authorization: `Bearer ${window.localStorage.getItem("token")}`,
             },
         })
-        .then((res) => res.json())
-        .then((data) => {
-            // console.log(data);
-            setUserData(data.data);
-        });
-    }, []);
-    
+            .then((res) => res.json())
+            .then((data) => {
+                setUserData(data.data);
+            });
+    }, [userData]);
+
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -162,19 +159,12 @@ export default function Navbar({ userData, setUserData }) {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{
-                                display: { xs: 'none', sm: 'block' },
-                                cursor: 'pointer',
-                                color: "var(--primary-30)",
-                            }}
+                        <img
+                            src="/logo2.png"
+                            alt=""
                             onClick={() => navigate('/')}
-                        >
-                            Taskmaster
-                        </Typography>
+                            className="logoImg"
+                        />
                     </Box>
                     <Search xs={6}>
                         <SearchIconWrapper>
@@ -194,7 +184,7 @@ export default function Navbar({ userData, setUserData }) {
                             !userData ?
                                 <Button
                                     variant="contained"
-                                    className="navBtn"
+                                    className="navBtn myBtn"
                                     onClick={() => navigate('/login')}
                                     sx={{ background: "var(--primary-30)" }}
                                 >
@@ -211,14 +201,13 @@ export default function Navbar({ userData, setUserData }) {
                                         onClick={handleClick}
                                         color="inherit"
                                     >
-                                        <AccountCircle sx={{ fontSize: '3rem' }} />
+                                        <AccountCircle sx={{ fontSize: '3rem' }} className="profileIcon"/>
                                     </IconButton>
                                 </>
                         }
                     </Box>
                 </Toolbar>
             </AppBar>
-            {/* {renderMobileMenu} */}
             {renderMenu}
         </Box>
     );

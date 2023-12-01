@@ -5,6 +5,7 @@ textarea {
     border: none;
     outline: none;
     resize: none;
+    font-family: 'Roboto','Arial';
 }
 
 #title {

@@ -1,7 +1,6 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
+import {Box,Modal,Button} from '@mui/material';
+import baseUrl from "../../../config";
 import './BasicModal.css'
 
 const style = {
@@ -36,7 +35,7 @@ function BasicModal(
         e.preventDefault();
         setIsEditing(false);
 
-        fetch('https://taskmaster-api-em9c.onrender.com/todo/create_todo', {
+        fetch(`${baseUrl}/todo/create_todo`, {
             method: "POST",
             crossDomain: true,
             headers: {
@@ -50,7 +49,6 @@ function BasicModal(
                 let result = res.json();
                 return result;
             }).then((data) => {
-                console.log(data);
                 getAllTodos();
             })
         handleClose();
@@ -67,6 +65,7 @@ function BasicModal(
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                className="modal"
             >
                 <Box sx={style}>
                     <form
@@ -77,6 +76,7 @@ function BasicModal(
                         <Button
                             type="submit"
                             variant="contained"
+                            className="myBtn"
                             sx={{
                                 position: 'absolute',
                                 right: '2rem',

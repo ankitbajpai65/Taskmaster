@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from "../../../config";
 import './Auth.css';
 
 const Login = () => {
@@ -17,7 +18,7 @@ const Login = () => {
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://taskmaster-api-em9c.onrender.com/user/login', {
+            const response = await fetch(`${baseUrl}/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
