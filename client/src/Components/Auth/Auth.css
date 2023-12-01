@@ -37,3 +37,12 @@
 .authContainer .authNavBtn:hover {
     text-decoration: underline;
 }
+
+@media only screen and (max-width: 450px) {
+    .authContainer{
+        padding:1.7rem;
+    }
+    .authContainer .authHead{
+        font-size:1.5rem;
+    }
+}

@@ -52,10 +52,11 @@ const Login = () => {
                 alignItems: 'center',
             }}
         >
-            <Grid item xs={5} className="authContainer">
+            <Grid item xs={14} sm={10} md={6} xl={5} className="authContainer">
                 <Typography
                     variant="h4"
                     gutterBottom
+                    className="authHead"
                     sx={{ mb: 5, color: 'var(--primary-30)' }}
                 >
                     Sign in to your account

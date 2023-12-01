@@ -17,3 +17,9 @@ textarea {
     line-height: 1.5rem;
     margin-bottom: 3rem;
 }
+
+@media only screen and (max-width: 600px) {
+    .modal .modalBox{
+        width:92%;
+    }
+}

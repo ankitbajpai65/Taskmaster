@@ -192,14 +192,14 @@ const Home = ({ userData }) => {
                                         </Grid>
                                     ))
                                 ) : (
-                                    <div style={{ color: 'var(--primary-30)', }}>
+                                    <Grid item xs={12} sx={{ color: 'var(--primary-30)',textAlign:'center' }}>
                                         <Typography variant="h3" component="div" sx={{ mb: 3, fontWeight: 'bold' }}>
                                             Your todo list is empty.
                                         </Typography>
                                         <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
                                             Add some todos to get started.
                                         </Typography>
-                                    </div>
+                                    </Grid>
                                 )
                             }
                         </Grid>

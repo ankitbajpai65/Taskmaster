@@ -10,6 +10,7 @@ const containerStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     color: 'var(--primary-30)',
+    textAlign:'center'
 };
 
 const linkStyle = {

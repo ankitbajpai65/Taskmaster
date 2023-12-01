@@ -67,7 +67,7 @@ function BasicModal(
                 aria-describedby="modal-modal-description"
                 className="modal"
             >
-                <Box sx={style}>
+                <Box sx={style} className="modalBox">
                     <form
                         onSubmit={!isEditing ? handleCreateTodo : handleEditTodo}
                     >
