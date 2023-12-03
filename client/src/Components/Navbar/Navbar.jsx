@@ -61,9 +61,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function Navbar({ userData, setUserData }) {
+export default function Navbar({ getUserData, userData, setUserData, allTodos, setFilteredTodos }) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
+    const [inputSearch, setInputSearch] = useState();
 
     const open = Boolean(anchorEl);
 
@@ -77,24 +78,21 @@ export default function Navbar({ userData, setUserData }) {
 
     const handleLogout = () => {
         localStorage.clear();
+        setUserData(null);
         navigate('/');
     }
 
     useEffect(() => {
-        fetch(`${baseUrl}/user/profile`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setUserData(data.data);
-            });
-    }, [userData]);
+        getUserData();
+    }, []);
 
+    const handleSearchTodo = (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const todos = allTodos.filter((todo) =>
+            todo.title.toLowerCase().includes(searchTerm) || (todo.description.toLowerCase().includes(searchTerm))
+        );
+        setFilteredTodos(todos);
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -173,6 +171,8 @@ export default function Navbar({ userData, setUserData }) {
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
+                            value={inputSearch}
+                            onChange={handleSearchTodo}
                         />
                     </Search>
                     <Box
@@ -201,7 +201,7 @@ export default function Navbar({ userData, setUserData }) {
                                         onClick={handleClick}
                                         color="inherit"
                                     >
-                                        <AccountCircle sx={{ fontSize: '3rem' }} className="profileIcon"/>
+                                        <AccountCircle sx={{ fontSize: '3rem' }} className="profileIcon" />
                                     </IconButton>
                                 </>
                         }

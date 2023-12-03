@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import baseUrl from "../../../config";
 import './Auth.css';
 
-const Login = () => {
+const Login = ({ getUserData }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState({
         email: '',
@@ -33,6 +33,7 @@ const Login = () => {
                 alert('Login successfully');
                 window.localStorage.setItem('token', data.data);
                 window.localStorage.setItem('isLogin', true);
+                getUserData();
                 navigate('/');
             }
         } catch (error) {

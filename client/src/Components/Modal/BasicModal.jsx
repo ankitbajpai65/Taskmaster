@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box,Modal,Button} from '@mui/material';
+import { Box, Modal, Button } from '@mui/material';
 import baseUrl from "../../../config";
 import './BasicModal.css'
 
