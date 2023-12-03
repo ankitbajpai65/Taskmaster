@@ -99,3 +99,12 @@
         transform: translate(-50%,-50%);
     }
 }
+@media only screen and (max-width: 450px) {
+    .message1 {
+        font-size: 1.7rem;
+    }
+    .message2 {
+        font-size: 1.2rem;
+        font-weight: normal;
+    }
+}
