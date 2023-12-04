@@ -15,6 +15,7 @@ const drawerWidth = 240;
 
 export default function Sidebar({
     openDrawer,
+    handleDrawerToggle,
     allTodos,
     setFilteredTodos,
     getAllTodos,
@@ -22,9 +23,7 @@ export default function Sidebar({
     setActiveDrawerButton
 }) {
     const getTrashTodos = () => {
-        console.log(`getTrashTodos runs`);
         const trashedTodos = allTodos.filter((todo) => todo.is_trash);
-        console.log(trashedTodos);
         setFilteredTodos(trashedTodos)
     }
 
@@ -43,6 +42,7 @@ export default function Sidebar({
             default:
                 break;
         }
+        handleDrawerToggle()
     }
 
     return (

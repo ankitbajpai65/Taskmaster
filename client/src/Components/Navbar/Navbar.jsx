@@ -83,7 +83,6 @@ export default function Navbar({
         isLogin ? setOpenDrawer(!openDrawer) : navigate('/login')
     };
 
-
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -236,7 +235,7 @@ export default function Navbar({
                     </Box>
                 </Toolbar>
             </AppBar>
-            {openDrawer && <Sidebar openDrawer={openDrawer} allTodos={allTodos} setFilteredTodos={setFilteredTodos} getAllTodos={getAllTodos} activeDrawerButton={activeDrawerButton} setActiveDrawerButton={setActiveDrawerButton} />}
+            {openDrawer && <Sidebar openDrawer={openDrawer} handleDrawerToggle={handleDrawerToggle} allTodos={allTodos} setFilteredTodos={setFilteredTodos} getAllTodos={getAllTodos} activeDrawerButton={activeDrawerButton} setActiveDrawerButton={setActiveDrawerButton} />}
             {renderMenu}
         </Box>
     );
