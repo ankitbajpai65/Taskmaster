@@ -6,10 +6,12 @@ import {
     CardActions,
     CardContent,
     Typography,
-    IconButton
+    IconButton,
+    Tooltip
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
+import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BasicModal from '../Modal/BasicModal';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +19,7 @@ import baseUrl from "../../../config";
 import './Home.css'
 import homeImg from '/login.png'
 
-const Home = ({ userData, allTodos, setAllTodos, filteredTodos, setFilteredTodos }) => {
+const Home = ({ userData, allTodos, filteredTodos, getAllTodos, activeDrawerButton }) => {
     const isLogin = localStorage.getItem("isLogin");
 
     const navigate = useNavigate();
@@ -41,17 +43,6 @@ const Home = ({ userData, allTodos, setAllTodos, filteredTodos, setFilteredTodos
             title: '',
             description: ''
         })
-    }
-
-    const getAllTodos = () => {
-        return fetch(`${baseUrl}/todo/getAllTodos/${userData?._id}`)
-            .then((res) => {
-                let result = res.json();
-                return result;
-            }).then((data) => {
-                setAllTodos(data.data);
-                setFilteredTodos(data.data);
-            })
     }
 
     useEffect(() => {
@@ -176,18 +167,43 @@ const Home = ({ userData, allTodos, setAllTodos, filteredTodos, setFilteredTodos
                                                     right: '0rem',
                                                     bottom: '0rem'
                                                 }}>
-                                                    <IconButton
-                                                        aria-label="delete"
-                                                        onClick={() => editBtnClick(todo)}
-                                                    >
-                                                        <EditIcon />
-                                                    </IconButton>
-                                                    <IconButton
-                                                        aria-label="delete"
-                                                        onClick={() => handleDeleteTodo(todo._id)}
-                                                    >
-                                                        <DeleteIcon className='deleteIcon' />
-                                                    </IconButton>
+                                                    {
+                                                        (activeDrawerButton === 'Todos' || activeDrawerButton === '') &&
+                                                        <>
+                                                            <IconButton
+                                                                aria-label="delete"
+                                                                onClick={() => editBtnClick(todo)}
+                                                            >
+                                                                <EditIcon />
+                                                            </IconButton>
+                                                            <IconButton
+                                                                aria-label="delete"
+                                                                onClick={() => handleDeleteTodo(todo._id)}
+                                                            >
+                                                                <DeleteIcon className='deleteIcon' />
+                                                            </IconButton>
+                                                        </>
+                                                    }
+                                                    {
+                                                        activeDrawerButton === 'Trash' &&
+                                                        <>
+                                                            <Tooltip title="Restore">
+                                                                <IconButton
+                                                                    aria-label="restore"
+                                                                >
+                                                                    <RestoreFromTrashIcon />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            <Tooltip title="Delete forever">
+                                                                <IconButton
+                                                                    aria-label="delete"
+                                                                >
+                                                                    <DeleteIcon />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </>
+                                                    }
+
                                                 </CardActions>
                                             </Card>
                                         </Grid>

@@ -18,6 +18,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from './Sidebar';
 import baseUrl from "../../../config";
 import './Navbar.css';
 
@@ -61,12 +62,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function Navbar({ getUserData, userData, setUserData, allTodos, setFilteredTodos }) {
+export default function Navbar({
+    getUserData,
+    userData,
+    setUserData,
+    allTodos,
+    setFilteredTodos,
+    getAllTodos,
+    activeDrawerButton,
+    setActiveDrawerButton
+}) {
     const navigate = useNavigate();
+    const isLogin = localStorage.getItem("isLogin");
     const [anchorEl, setAnchorEl] = useState(null);
     const [inputSearch, setInputSearch] = useState();
-
     const open = Boolean(anchorEl);
+    const [openDrawer, setOpenDrawer] = React.useState(false);
+
+    const handleDrawerToggle = () => {
+        isLogin ? setOpenDrawer(!openDrawer) : navigate('/login')
+    };
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -88,10 +104,22 @@ export default function Navbar({ getUserData, userData, setUserData, allTodos, s
 
     const handleSearchTodo = (e) => {
         const searchTerm = e.target.value.toLowerCase();
-        const todos = allTodos.filter((todo) =>
-            todo.title.toLowerCase().includes(searchTerm) || (todo.description.toLowerCase().includes(searchTerm))
-        );
-        setFilteredTodos(todos);
+
+        const activeTodos = allTodos.filter((todo) => !todo.is_trash);
+        const trashedTodos = allTodos.filter((todo) => todo.is_trash);
+
+        if (activeDrawerButton === 'Todos') {
+            const todos = activeTodos.filter((todo) =>
+                todo.title.toLowerCase().includes(searchTerm) || (todo.description.toLowerCase().includes(searchTerm))
+            );
+            setFilteredTodos(todos);
+        }
+        else if (activeDrawerButton === 'Trash') {
+            const todos = trashedTodos.filter((todo) =>
+                todo.title.toLowerCase().includes(searchTerm) || (todo.description.toLowerCase().includes(searchTerm))
+            );
+            setFilteredTodos(todos);
+        }
     }
 
     const menuId = 'primary-search-account-menu';
@@ -149,10 +177,10 @@ export default function Navbar({ getUserData, userData, setUserData, allTodos, s
                         gap: '2rem'
                     }}>
                         <IconButton
-                            size="large"
-                            edge="start"
                             color="inherit"
                             aria-label="open drawer"
+                            onClick={handleDrawerToggle}
+                            edge="start"
                             sx={{ mr: 2 }}
                         >
                             <MenuIcon />
@@ -208,6 +236,7 @@ export default function Navbar({ getUserData, userData, setUserData, allTodos, s
                     </Box>
                 </Toolbar>
             </AppBar>
+            {openDrawer && <Sidebar openDrawer={openDrawer} allTodos={allTodos} setFilteredTodos={setFilteredTodos} getAllTodos={getAllTodos} activeDrawerButton={activeDrawerButton} setActiveDrawerButton={setActiveDrawerButton} />}
             {renderMenu}
         </Box>
     );

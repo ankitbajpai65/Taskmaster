@@ -12,6 +12,14 @@
     color: var(--primary-30);
 }
 
+.myDrawer>div:first-child{
+    top:65px;
+}
+
+.activeDrawerButton{
+    background-color: #E8E8E8;
+}
+
 @media only screen and (max-width: 900px) {
     .logoImg{
         display: none;

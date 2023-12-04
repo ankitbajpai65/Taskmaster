@@ -42,8 +42,8 @@ const deleteTodo = async (req, res) => {
     const { id } = req.body;
 
     try {
-        const todo = await Todo.findByIdAndDelete(id);
-        return res.json({ status: 'ok', message: 'Deleted successfully' });
+        const todo = await Todo.findByIdAndUpdate(id, { is_trash: true })
+        return res.json({ status: 'ok', message: 'Deleted successfully and moved to trash' });
     } catch (error) {
         return res.status(400).json({ status: 'error', error });
     }

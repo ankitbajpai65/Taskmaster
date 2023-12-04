@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
   const isLogin = localStorage.getItem("isLogin");
-
+  const [activeDrawerButton, setActiveDrawerButton] = useState('');
   const [userData, setUserData] = useState(null);
   const [allTodos, setAllTodos] = useState([]);
   const [filteredTodos, setFilteredTodos] = useState([]);
@@ -31,11 +31,23 @@ function App() {
       });
   }
 
+  const getAllTodos = () => {
+    return fetch(`${baseUrl}/todo/getAllTodos/${userData?._id}`)
+      .then((res) => {
+        let result = res.json();
+        return result;
+      }).then((data) => {
+        setAllTodos(data.data);
+        const filterTodo = data.data.filter((todo)=>!todo.is_trash)
+        setFilteredTodos(filterTodo);
+      })
+  }
+
   return (
     <>
-      <Navbar getUserData={getUserData} userData={userData} setUserData={setUserData} allTodos={allTodos} setFilteredTodos={setFilteredTodos} />
+      <Navbar getUserData={getUserData} userData={userData} setUserData={setUserData} allTodos={allTodos} setFilteredTodos={setFilteredTodos} getAllTodos={getAllTodos} activeDrawerButton={activeDrawerButton} setActiveDrawerButton={setActiveDrawerButton} />
       <Routes>
-        <Route index element={<Home userData={userData} allTodos={allTodos} setAllTodos={setAllTodos} filteredTodos={filteredTodos} setFilteredTodos={setFilteredTodos} />} />
+        <Route index element={<Home userData={userData} allTodos={allTodos} filteredTodos={filteredTodos} getAllTodos={getAllTodos} activeDrawerButton={activeDrawerButton} />} />
         <Route path='/login' element={!isLogin && <Login getUserData={getUserData} />} />
         <Route path='/signup' element={!isLogin && <Signup />} />
         <Route path='/*' element={<Error />} />
