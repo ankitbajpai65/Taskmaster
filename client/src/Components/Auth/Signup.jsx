@@ -7,21 +7,25 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import baseUrl from "../../../config";
+import { useFormik } from 'formik';
+import { SignupSchema } from './validationSchema';
 import './Auth.css';
 
 const Signup = () => {
-    const [user, setUser] = useState({
-        name: '',
-        email: '',
-        password: '',
-    });
+    const navigate = useNavigate();
+    const [authError, setAuthError] = useState('');
+    // const [user, setUser] = useState({
+    //     name: '',
+    //     email: '',
+    //     password: '',
+    // });
 
-    const inputEvent = (e) => {
-        setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    };
+    // const inputEvent = (e) => {
+    //     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    // };
 
     const handleSignupSubmit = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         try {
             const response = await fetch(`${baseUrl}/user/register`, {
                 method: 'POST',
@@ -29,18 +33,29 @@ const Signup = () => {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
                 },
-                body: JSON.stringify(user),
+                body: JSON.stringify(formik.values),
             });
 
             const data = await response.json();
-            console.log(data);
-            navigate('/login');
+
+            if (data.status === 'error')
+                setAuthError(data.message);
+            else
+                navigate('/login');
         } catch (error) {
             console.error('Error during signup:', error);
         }
     };
 
-    const navigate = useNavigate();
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+            password: '',
+        },
+        validationSchema: SignupSchema,
+        onSubmit: handleSignupSubmit
+    });
 
     return (
         <Grid container columns={16} sx={{
@@ -59,7 +74,7 @@ const Signup = () => {
                 >
                     Create free account
                 </Typography>
-                <form onSubmit={handleSignupSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     {['name', 'email', 'password'].map((field) => (
                         <TextField
                             key={field}
@@ -68,10 +83,20 @@ const Signup = () => {
                             id="fullWidth"
                             className="inputField"
                             name={field}
-                            value={user[field]}
-                            onChange={inputEvent}
+                            // value={user[field]}
+                            // onChange={inputEvent}
+                            value={formik.values[field]}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched[field] && Boolean(formik.errors[field])}
+                            helperText={formik.touched[field] && formik.errors[field]}
                         />
                     ))}
+                    {authError && (
+                        <Typography variant="div" color="error">
+                            {authError}
+                        </Typography>
+                    )}
                     <Button
                         type="submit"
                         variant="contained"

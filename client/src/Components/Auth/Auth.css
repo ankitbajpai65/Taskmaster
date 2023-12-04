@@ -5,12 +5,9 @@
     border-radius: 1rem;
 }
 
-.inputField {
-    background: var(--primary-10);
-}
-
 .inputField input {
     padding: 12px;
+    background: var(--primary-10);
 }
 
 .inputField fieldset {

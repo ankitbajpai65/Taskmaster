@@ -16,7 +16,7 @@ const handleUserSignup = async (req, res) => {
 
     const oldUser = await User.findOne({ email })
     if (oldUser)
-        return res.status(409).json({ status: 'error', message: 'User Already Exists' });
+        return res.status(409).json({ status: 'error', message: 'User is already exists' });
 
     const encryptedUserPassword = await bcrypt.hash(password, 10);
 
@@ -40,7 +40,7 @@ const handleUserLogin = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user)
-            return res.json({ status: 'error', message: 'User Not Found' });
+            return res.json({ status: 'error', message: 'User not found. Please sign up to create an account.' });
 
         if (await bcrypt.compare(password, user.password)) {
             const token = jwt.sign({ email: user.email }, TOKEN_KEY);
