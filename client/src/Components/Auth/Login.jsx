@@ -2,21 +2,24 @@ import React, { useState } from 'react';
 import { Grid, Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import baseUrl from "../../../config";
+import { useFormik } from 'formik';
+import { LoginSchema } from './validationSchema';
 import './Auth.css';
 
 const Login = ({ getUserData }) => {
     const navigate = useNavigate();
-    const [user, setUser] = useState({
-        email: '',
-        password: '',
-    });
+    const [authError, setAuthError] = useState('')
+    // const [user, setUser] = useState({
+    //     email: '',
+    //     password: '',
+    // });
 
-    const inputEvent = (e) => {
-        setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    };
+    // const inputEvent = (e) => {
+    //     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    // };
 
     const handleLoginSubmit = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         try {
             const response = await fetch(`${baseUrl}/user/login`, {
                 method: 'POST',
@@ -24,7 +27,7 @@ const Login = ({ getUserData }) => {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
                 },
-                body: JSON.stringify(user),
+                body: JSON.stringify(formik.values),
             });
 
             const data = await response.json();
@@ -36,10 +39,21 @@ const Login = ({ getUserData }) => {
                 getUserData();
                 navigate('/');
             }
+            else if (data.status === 'error')
+                setAuthError(data.message);
         } catch (error) {
             console.error('Error during login:', error);
         }
     };
+
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validationSchema: LoginSchema,
+        onSubmit: handleLoginSubmit
+    });
 
     return (
         <Grid
@@ -62,7 +76,7 @@ const Login = ({ getUserData }) => {
                 >
                     Sign in to your account
                 </Typography>
-                <form noValidate onSubmit={handleLoginSubmit}>
+                <form noValidate onSubmit={formik.handleSubmit}>
                     {['email', 'password'].map((field) => (
                         <TextField
                             key={field}
@@ -71,9 +85,19 @@ const Login = ({ getUserData }) => {
                             id="fullWidth"
                             className="inputField"
                             name={field}
-                            onChange={inputEvent}
+                            // onChange={inputEvent}
+                            value={formik.values[field]}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched[field] && Boolean(formik.errors[field])}
+                            helperText={formik.touched[field] && formik.errors[field]}
                         />
                     ))}
+                    {authError && (
+                        <Typography variant="div" color="error">
+                            {authError}
+                        </Typography>
+                    )}
                     <Button
                         type="submit"
                         variant="contained"
