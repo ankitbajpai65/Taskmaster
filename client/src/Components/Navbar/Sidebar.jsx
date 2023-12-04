@@ -7,8 +7,9 @@ import {
     ListItemIcon,
     ListItemText
 } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import NotesIcon from '@mui/icons-material/Notes';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import DeleteIcon from '@mui/icons-material/Delete';
 import './Navbar.css';
 
 const drawerWidth = 240;
@@ -72,7 +73,9 @@ export default function Sidebar({
                             disabled={text === 'Archive'}
                         >
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                {text === 'Todos' && <NotesIcon />}
+                                {text === 'Archive' && <ArchiveIcon />}
+                                {text === 'Trash' && <DeleteIcon />}
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
