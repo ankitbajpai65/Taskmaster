@@ -3,30 +3,36 @@
     margin-bottom: auto;
 }
 
-.logoImg{
-    height:1.6rem;
+.logoImgLogin {
+    height: 1.6rem;
     cursor: pointer;
 }
 
-.profileIcon path{
+.logoImgLogout {
+    height: 2rem;
+    cursor: pointer;
+}
+
+.profileIcon path {
     color: var(--primary-30);
 }
 
-.myDrawer>div:first-child{
-    top:65px;
+.myDrawer>div:first-child {
+    top: 65px;
 }
 
-.activeDrawerButton{
+.activeDrawerButton {
     background-color: #E8E8E8;
 }
 
 @media only screen and (max-width: 900px) {
-    .logoImg{
+    .logoImg {
         display: none;
     }
 }
+
 @media only screen and (max-width: 600px) {
-    .myDrawer>div:first-child{
-        top:57px;
+    .myDrawer>div:first-child {
+        top: 57px;
     }
 }

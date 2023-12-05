@@ -172,35 +172,42 @@ export default function Navbar({
                     <Box sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '2rem'
+                        gap: '2rem',
+                        margin: !isLogin && 'auto'
                     }}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={handleDrawerToggle}
-                            edge="start"
-                            sx={{ mr: 2 }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
+                        {
+                            isLogin &&
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={handleDrawerToggle}
+                                edge="start"
+                                sx={{ mr: 2 }}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                        }
                         <img
                             src="/logo2.png"
                             alt=""
                             onClick={() => navigate('/')}
-                            className="logoImg"
+                            className={`${isLogin ? 'logoImgLogin' : 'logoImgLogout'}`}
                         />
                     </Box>
-                    <Search xs={6}>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                            value={inputSearch}
-                            onChange={handleSearchTodo}
-                        />
-                    </Search>
+                    {
+                        isLogin &&
+                        <Search xs={6}>
+                            <SearchIconWrapper>
+                                <SearchIcon />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder="Search…"
+                                inputProps={{ 'aria-label': 'search' }}
+                                value={inputSearch}
+                                onChange={handleSearchTodo}
+                            />
+                        </Search>
+                    }
                     <Box
                         sx={{
                             height: '3rem',
