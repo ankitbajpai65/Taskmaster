@@ -13,13 +13,20 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import BasicModal from '../Modal/BasicModal';
 import { useNavigate } from 'react-router-dom';
 import baseUrl from "../../../config";
 import './Home.css'
 import homeImg from '/login.png'
 
-const Home = ({ userData, allTodos, filteredTodos, getAllTodos, activeDrawerButton }) => {
+const Home = ({
+    userData,
+    allTodos,
+    filteredTodos,
+    getAllTodos,
+    activeDrawerButton
+}) => {
     const isLogin = localStorage.getItem("isLogin");
 
     const navigate = useNavigate();
@@ -84,10 +91,50 @@ const Home = ({ userData, allTodos, filteredTodos, getAllTodos, activeDrawerButt
     }
 
     const handleDeleteTodo = (id) => {
-        const confirmation = confirm('Are you sure you want to delete this todo!')
+        const confirmation = confirm('Do you want to delete this todo?')
 
         if (confirmation) {
             fetch(`${baseUrl}/todo/deleteTodo`, {
+                method: "PATCH",
+                crossDomain: true,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify({ id })
+            })
+                .then((res) => res.json()).then((data) => {
+                    getAllTodos();
+                })
+        }
+    }
+
+    const handleRestoreTodo = (id) => {
+        const confirmation = confirm('Do you want to restore this todo?')
+
+        if (confirmation) {
+            fetch(`${baseUrl}/todo/restoreTodo`, {
+                method: "PATCH",
+                crossDomain: true,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify({ id })
+            })
+                .then((res) => res.json()).then((data) => {
+                    getAllTodos();
+                })
+        }
+    }
+
+    const handleDeleteTodoPermanently = (id) => {
+        const confirmation = confirm('Are you sure you want to delete this todo permanently!')
+
+        if (confirmation) {
+            fetch(`${baseUrl}/todo/deleteTodoPermanently`, {
                 method: "DELETE",
                 crossDomain: true,
                 headers: {
@@ -119,10 +166,13 @@ const Home = ({ userData, allTodos, filteredTodos, getAllTodos, activeDrawerButt
                         </Grid>
                     </Grid>
                     :
-                    <div style={{ marginTop: '2.5rem' }}>
-                        <button className="addBtn" onClick={handleOpen}>
-                            <AddIcon className='addIcon' />
-                        </button>
+                    <div className="homeMainContainer">
+                        {
+                            (activeDrawerButton === '' || activeDrawerButton === 'Todos') &&
+                            <button className="addBtn" onClick={handleOpen}>
+                                <AddIcon className='addIcon' />
+                            </button>
+                        }
                         <BasicModal
                             open={open}
                             handleClose={handleClose}
@@ -134,6 +184,22 @@ const Home = ({ userData, allTodos, filteredTodos, getAllTodos, activeDrawerButt
                             handleEditTodo={handleEditTodo}
                             userData={userData}
                         />
+                        {
+                            activeDrawerButton === 'Trash' &&
+                            <div className='trashMessageContainer'>
+                                <Typography variant="span" sx={{ mr: 3 }}>
+                                    Todos in Trash are deleted after 7 days
+                                </Typography>
+                                <Button
+                                    variant="text"
+                                    disabled
+                                    className="emptyTrashBtn"
+                                >
+                                    Empty trash
+                                </Button>
+
+                            </div>
+                        }
                         <Grid
                             container
                             spacing={5}
@@ -190,6 +256,7 @@ const Home = ({ userData, allTodos, filteredTodos, getAllTodos, activeDrawerButt
                                                             <Tooltip title="Restore">
                                                                 <IconButton
                                                                     aria-label="restore"
+                                                                    onClick={() => handleRestoreTodo(todo._id)}
                                                                 >
                                                                     <RestoreFromTrashIcon />
                                                                 </IconButton>
@@ -197,6 +264,7 @@ const Home = ({ userData, allTodos, filteredTodos, getAllTodos, activeDrawerButt
                                                             <Tooltip title="Delete forever">
                                                                 <IconButton
                                                                     aria-label="delete"
+                                                                    onClick={() => handleDeleteTodoPermanently(todo._id)}
                                                                 >
                                                                     <DeleteIcon />
                                                                 </IconButton>
@@ -216,12 +284,24 @@ const Home = ({ userData, allTodos, filteredTodos, getAllTodos, activeDrawerButt
                                         color: 'var(--primary-30)',
                                         textAlign: 'center'
                                     }}>
-                                        <Typography variant="h3" component="div" sx={{ mb: 3, fontWeight: 'bold' }}>
-                                            Your todo list is empty.
-                                        </Typography>
-                                        <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
-                                            Add some todos to get started.
-                                        </Typography>
+                                        {
+                                            activeDrawerButton === 'Trash' ?
+                                                <div className='emptyTrashContainer'>
+                                                    <DeleteOutlineIcon className='trashIcon' />
+                                                    <Typography variant="h4" id="message">
+                                                        Trash is empty
+                                                    </Typography>
+                                                </div>
+                                                :
+                                                <>
+                                                    <Typography variant="h3" component="div" sx={{ mb: 3, fontWeight: 'bold' }}>
+                                                        Your todo list is empty.
+                                                    </Typography>
+                                                    <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+                                                        Add some todos to get started.
+                                                    </Typography>
+                                                </>
+                                        }
                                     </Grid>
                                 )
                             }

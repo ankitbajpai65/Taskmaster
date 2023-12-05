@@ -38,14 +38,20 @@ function App() {
         return result;
       }).then((data) => {
         setAllTodos(data.data);
-        const filterTodo = data.data.filter((todo)=>!todo.is_trash)
-        setFilteredTodos(filterTodo);
+        if (activeDrawerButton === 'Todos' || activeDrawerButton === '') {
+          const filterTodo = data.data.filter((todo) => !todo.is_trash)
+          setFilteredTodos(filterTodo);
+        }
+        else if (activeDrawerButton === 'Trash') {
+          const filterTodo = data.data.filter((todo) => todo.is_trash)
+          setFilteredTodos(filterTodo);
+        }
       })
   }
 
   return (
     <>
-      <Navbar getUserData={getUserData} userData={userData} setUserData={setUserData} allTodos={allTodos} setFilteredTodos={setFilteredTodos} getAllTodos={getAllTodos} activeDrawerButton={activeDrawerButton} setActiveDrawerButton={setActiveDrawerButton} />
+      <Navbar getUserData={getUserData} userData={userData} setUserData={setUserData} allTodos={allTodos} setFilteredTodos={setFilteredTodos} activeDrawerButton={activeDrawerButton} setActiveDrawerButton={setActiveDrawerButton} />
       <Routes>
         <Route index element={<Home userData={userData} allTodos={allTodos} filteredTodos={filteredTodos} getAllTodos={getAllTodos} activeDrawerButton={activeDrawerButton} />} />
         <Route path='/login' element={!isLogin && <Login getUserData={getUserData} />} />

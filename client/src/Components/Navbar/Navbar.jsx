@@ -68,9 +68,8 @@ export default function Navbar({
     setUserData,
     allTodos,
     setFilteredTodos,
-    getAllTodos,
     activeDrawerButton,
-    setActiveDrawerButton
+    setActiveDrawerButton,
 }) {
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin");
@@ -235,7 +234,17 @@ export default function Navbar({
                     </Box>
                 </Toolbar>
             </AppBar>
-            {openDrawer && <Sidebar openDrawer={openDrawer} handleDrawerToggle={handleDrawerToggle} allTodos={allTodos} setFilteredTodos={setFilteredTodos} getAllTodos={getAllTodos} activeDrawerButton={activeDrawerButton} setActiveDrawerButton={setActiveDrawerButton} />}
+            {
+                openDrawer &&
+                <Sidebar
+                    openDrawer={openDrawer}
+                    handleDrawerToggle={handleDrawerToggle}
+                    allTodos={allTodos}
+                    setFilteredTodos={setFilteredTodos}
+                    activeDrawerButton={activeDrawerButton}
+                    setActiveDrawerButton={setActiveDrawerButton}
+                />
+            }
             {renderMenu}
         </Box>
     );

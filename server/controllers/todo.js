@@ -49,9 +49,34 @@ const deleteTodo = async (req, res) => {
     }
 }
 
+const restoreTodoFromTrash = async (req, res) => {
+    const { id } = req.body;
+
+    try {
+        const todo = await Todo.findByIdAndUpdate(id, { is_trash: false })
+        return res.json({ status: 'ok', message: 'Todo restored successfully from trash' });
+    } catch (error) {
+        return res.status(400).json({ status: 'error', error });
+    }
+}
+
+const deleteTodoPermanently = async (req, res) => {
+    const { id } = req.body;
+    console.log(id)
+
+    try {
+        const todo = await Todo.findByIdAndDelete(id)
+        return res.json({ status: 'ok', message: 'Todo deleted permanently' });
+    } catch (error) {
+        return res.status(400).json({ status: 'error', error });
+    }
+}
+
 module.exports = {
     handleCreateTodo,
     getAllTodos,
     editTodo,
     deleteTodo,
+    restoreTodoFromTrash,
+    deleteTodoPermanently
 }

@@ -5,6 +5,8 @@ const {
     getAllTodos,
     editTodo,
     deleteTodo,
+    restoreTodoFromTrash,
+    deleteTodoPermanently
 } = require('../controllers/todo')
 
 router.post('/create_todo', handleCreateTodo);
@@ -12,7 +14,9 @@ router.post('/create_todo', handleCreateTodo);
 router.get('/getAllTodos/:userId', getAllTodos);
 
 router.patch('/editTodo', editTodo);
+router.patch('/deleteTodo', deleteTodo);
+router.patch('/restoreTodo', restoreTodoFromTrash);
 
-router.delete('/deleteTodo', deleteTodo);
+router.delete('/deleteTodoPermanently', deleteTodoPermanently);
 
 module.exports = router;

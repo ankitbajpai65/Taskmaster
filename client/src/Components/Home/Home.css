@@ -1,10 +1,15 @@
+.homeMainContainer {
+    padding-top: 2.5rem;
+    background-color: var(--primary-10);
+}
+
 .homeImgCont {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.homeDiv{
+.homeDiv {
     background-color: var(--primary-10);
 }
 
@@ -23,11 +28,12 @@
 .message1 {
     font-size: 2.5rem;
     text-align: center;
-    color:var(--primary-30);
+    color: var(--primary-30);
 }
+
 .message2 {
     text-align: center;
-    color:var(--primary-30);
+    color: var(--primary-30);
 }
 
 .addBtn {
@@ -48,11 +54,41 @@
     color: white;
 }
 
+/* TRASH */
+
+.trashMessageContainer {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.emptyTrashBtn {
+    text-transform: capitalize;
+    font-weight: 500;
+    color: var(--primary-30);
+    margin-bottom: 2px;
+}
+
+.emptyTrashContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.emptyTrashContainer .trashIcon {
+    font-size: 4rem;
+    opacity: 0.6;
+}
+
+.emptyTrashContainer #message {
+    text-align: center;
+}
+
+
 /* CARDS */
 
 .cardContainer {
-    background: var(--primary-10);
-    min-height: 91vh;
     min-height: 91vh;
     max-height: auto;
     padding: 1rem 2rem;
@@ -92,17 +128,20 @@
         display: none;
     }
 }
+
 @media only screen and (max-width: 600px) {
     .addBtn {
         right: 35%;
         bottom: 8%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
     }
 }
+
 @media only screen and (max-width: 450px) {
     .message1 {
         font-size: 1.7rem;
     }
+
     .message2 {
         font-size: 1.2rem;
         font-weight: normal;

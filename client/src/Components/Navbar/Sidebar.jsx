@@ -19,26 +19,22 @@ export default function Sidebar({
     handleDrawerToggle,
     allTodos,
     setFilteredTodos,
-    getAllTodos,
     activeDrawerButton,
-    setActiveDrawerButton
+    setActiveDrawerButton,
 }) {
-    const getTrashTodos = () => {
-        const trashedTodos = allTodos.filter((todo) => todo.is_trash);
-        setFilteredTodos(trashedTodos)
-    }
-
     const handleDrawerButton = (text) => {
         setActiveDrawerButton(text);
 
         switch (text) {
             case "Todos":
-                getAllTodos();
+                const nonTrashedTodos = allTodos.filter((todo) => !todo.is_trash);
+                setFilteredTodos(nonTrashedTodos);
                 break;
             case "Archive":
                 break;
             case "Trash":
-                getTrashTodos();
+                const trashedTodos = allTodos.filter((todo) => todo.is_trash);
+                setFilteredTodos(trashedTodos);
                 break;
             default:
                 break;
