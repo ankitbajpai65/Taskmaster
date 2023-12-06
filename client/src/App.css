@@ -37,5 +37,6 @@ form {
     .navbar .myBtn {
         height: unset;
         width: unset;
+        padding: 6px;
     }
 }

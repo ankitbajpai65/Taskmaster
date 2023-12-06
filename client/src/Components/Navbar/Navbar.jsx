@@ -148,12 +148,6 @@ export default function Navbar({
             <MenuItem onClick={handleClose}>
                 <Avatar /> {userData?.name}
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <Settings fontSize="small" />
-                </ListItemIcon>
-                Settings
-            </MenuItem>
             <MenuItem onClick={handleLogout}>
                 <ListItemIcon>
                     <Logout fontSize="small" />

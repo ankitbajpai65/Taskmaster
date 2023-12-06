@@ -22,7 +22,6 @@ import homeImg from '/login.png'
 
 const Home = ({
     userData,
-    allTodos,
     filteredTodos,
     getAllTodos,
     activeDrawerButton
@@ -166,7 +165,7 @@ const Home = ({
                         </Grid>
                     </Grid>
                     :
-                    <div className="homeMainContainer">
+                    <div className='homeMainContainer'>
                         {
                             (activeDrawerButton === '' || activeDrawerButton === 'Todos') &&
                             <button className="addBtn" onClick={handleOpen}>
@@ -203,15 +202,19 @@ const Home = ({
                         <Grid
                             container
                             spacing={5}
-                            className={`cardContainer ${allTodos?.length === 0 ? 'emptyCardContainer' : 'filledCardContainer'}`}>
+                            className={`cardContainer ${filteredTodos?.length === 0 ? 'emptyCardContainer' : 'filledCardContainer'}`}>
                             {
                                 filteredTodos?.length > 0 ? (
                                     filteredTodos.map((todo, index) => (
                                         <Grid item xs={12} sm={6} md={4} xl={3} key={index}
-                                            sx={{ height: 'fit-content' }}
+                                            sx={{
+                                                // border:'2px solid red',
+                                                height: 'fit-content',
+                                            }}
                                         >
                                             <Card
                                                 sx={{
+                                                    // border:'2px solid',
                                                     width: '100%',
                                                     position: 'relative',
                                                     background: 'var(--primary-20)',
@@ -294,7 +297,7 @@ const Home = ({
                                                 </div>
                                                 :
                                                 <>
-                                                    <Typography variant="h3" component="div" sx={{ mb: 3, fontWeight: 'bold' }}>
+                                                    <Typography variant="h3" component="div" className="emptyMessage" sx={{ mb: 3, fontWeight: 'bold' }}>
                                                         Your todo list is empty.
                                                     </Typography>
                                                     <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>

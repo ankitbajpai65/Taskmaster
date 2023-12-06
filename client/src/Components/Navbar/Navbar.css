@@ -26,7 +26,7 @@
 }
 
 @media only screen and (max-width: 900px) {
-    .logoImg {
+    .logoImgLogin {
         display: none;
     }
 }
@@ -34,5 +34,9 @@
 @media only screen and (max-width: 600px) {
     .myDrawer>div:first-child {
         top: 57px;
+    }
+
+    .logoImgLogout {
+        height: 1.6rem;
     }
 }
