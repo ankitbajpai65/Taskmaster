@@ -149,6 +149,29 @@ const Home = ({
         }
     }
 
+    const handleEmptyTrash = () => {
+        console.log(`empty trasg clicks`);
+        console.log(userData)
+
+        const confirmation = confirm('Do you want to empty your trash?')
+
+        if (confirmation) {
+            fetch(`${baseUrl}/todo/emptyTrash`, {
+                method: "DELETE",
+                crossDomain: true,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify({ id: userData._id })
+            })
+                .then((res) => res.json()).then((data) => {
+                    getAllTodos();
+                })
+        }
+    }
+
     return (
         <>
             {
@@ -191,8 +214,8 @@ const Home = ({
                                 </Typography>
                                 <Button
                                     variant="text"
-                                    disabled
                                     className="emptyTrashBtn"
+                                    onClick={handleEmptyTrash}
                                 >
                                     Empty trash
                                 </Button>
@@ -207,14 +230,10 @@ const Home = ({
                                 filteredTodos?.length > 0 ? (
                                     filteredTodos.map((todo, index) => (
                                         <Grid item xs={12} sm={6} md={4} xl={3} key={index}
-                                            sx={{
-                                                // border:'2px solid red',
-                                                height: 'fit-content',
-                                            }}
+                                            sx={{ height: 'fit-content' }}
                                         >
                                             <Card
                                                 sx={{
-                                                    // border:'2px solid',
                                                     width: '100%',
                                                     position: 'relative',
                                                     background: 'var(--primary-20)',

@@ -72,11 +72,25 @@ const deleteTodoPermanently = async (req, res) => {
     }
 }
 
+const handleEmptyTrash = async (req, res) => {
+    const { id } = req.body;
+
+    try {
+        const todosToDelete = await Todo.find({ user: id, is_trash: true });
+        await Todo.deleteMany({ user: id, is_trash: true });
+
+        return res.json({ status: 'ok', message: 'Trash is empty now'});
+    } catch (error) {
+        return res.status(400).json({ status: 'error', error });
+    }
+}
+
 module.exports = {
     handleCreateTodo,
     getAllTodos,
     editTodo,
     deleteTodo,
     restoreTodoFromTrash,
-    deleteTodoPermanently
+    deleteTodoPermanently,
+    handleEmptyTrash
 }

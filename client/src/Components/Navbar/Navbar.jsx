@@ -106,7 +106,7 @@ export default function Navbar({
         const activeTodos = allTodos.filter((todo) => !todo.is_trash);
         const trashedTodos = allTodos.filter((todo) => todo.is_trash);
 
-        if (activeDrawerButton === 'Todos') {
+        if (activeDrawerButton === 'Todos' || activeDrawerButton === '') {
             const todos = activeTodos.filter((todo) =>
                 todo.title.toLowerCase().includes(searchTerm) || (todo.description.toLowerCase().includes(searchTerm))
             );

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Box, Modal, Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import baseUrl from "../../../config";
 import './BasicModal.css'
 
@@ -77,6 +79,7 @@ function BasicModal(
                             type="submit"
                             variant="contained"
                             className="myBtn"
+                            endIcon={isEditing ? <EditIcon /> : <AddIcon />}
                             sx={{
                                 position: 'absolute',
                                 right: '2rem',

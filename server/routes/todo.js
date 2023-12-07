@@ -6,7 +6,8 @@ const {
     editTodo,
     deleteTodo,
     restoreTodoFromTrash,
-    deleteTodoPermanently
+    deleteTodoPermanently,
+    handleEmptyTrash
 } = require('../controllers/todo')
 
 router.post('/create_todo', handleCreateTodo);
@@ -18,5 +19,6 @@ router.patch('/deleteTodo', deleteTodo);
 router.patch('/restoreTodo', restoreTodoFromTrash);
 
 router.delete('/deleteTodoPermanently', deleteTodoPermanently);
+router.delete('/emptyTrash', handleEmptyTrash);
 
 module.exports = router;
