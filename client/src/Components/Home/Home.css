@@ -1,8 +1,13 @@
 .homeMainContainer {
     background-color: var(--primary-10);
-    min-height: 91vh;
+    min-height: calc(100vh - 64px);
     max-height: auto;
     padding-top: 2.5rem;
+}
+
+.mainContainer {
+    width: calc(100% - 240px);
+    float: right;
 }
 
 .homeImgCont {
@@ -145,6 +150,11 @@
         font-size: 1.2rem;
         font-weight: normal;
         padding: 4px;
+    }
+
+    .trashMessageContainer {
+        display: flex;
+        flex-direction: column;
     }
 
     .homeMainContainer .emptyMessage {

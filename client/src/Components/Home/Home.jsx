@@ -24,7 +24,9 @@ const Home = ({
     userData,
     filteredTodos,
     getAllTodos,
-    activeDrawerButton
+    openDrawer,
+    activeDrawerButton,
+    inputSearch
 }) => {
     const isLogin = localStorage.getItem("isLogin");
 
@@ -188,7 +190,8 @@ const Home = ({
                         </Grid>
                     </Grid>
                     :
-                    <div className='homeMainContainer'>
+                    <div className={`${openDrawer && window.innerWidth > 768 ? 'homeMainContainer mainContainer' : 'homeMainContainer'}`}
+                    >
                         {
                             (activeDrawerButton === '' || activeDrawerButton === 'Todos') &&
                             <button className="addBtn" onClick={handleOpen}>
@@ -306,15 +309,17 @@ const Home = ({
                                         color: 'var(--primary-30)',
                                         textAlign: 'center'
                                     }}>
-                                        {
-                                            activeDrawerButton === 'Trash' ?
-                                                <div className='emptyTrashContainer'>
-                                                    <DeleteOutlineIcon className='trashIcon' />
-                                                    <Typography variant="h4" id="message">
-                                                        Trash is empty
-                                                    </Typography>
-                                                </div>
-                                                :
+                                        {activeDrawerButton === 'Trash' ? (
+                                            <div className='emptyTrashContainer'>
+                                                <DeleteOutlineIcon className='trashIcon' />
+                                                <Typography variant="h4" id="message">
+                                                    Trash is empty
+                                                </Typography>
+                                            </div>
+                                        ) : (
+                                            inputSearch.length > 0 ? (
+                                                <h1>No todo found</h1>
+                                            ) : (
                                                 <>
                                                     <Typography variant="h3" component="div" className="emptyMessage" sx={{ mb: 3, fontWeight: 'bold' }}>
                                                         Your todo list is empty.
@@ -323,8 +328,10 @@ const Home = ({
                                                         Add some todos to get started.
                                                     </Typography>
                                                 </>
-                                        }
+                                            )
+                                        )}
                                     </Grid>
+
                                 )
                             }
                         </Grid>

@@ -10,10 +10,12 @@ import './App.css';
 
 function App() {
   const isLogin = localStorage.getItem("isLogin");
+  const [openDrawer, setOpenDrawer] = React.useState(false);
   const [activeDrawerButton, setActiveDrawerButton] = useState('');
   const [userData, setUserData] = useState(null);
   const [allTodos, setAllTodos] = useState([]);
   const [filteredTodos, setFilteredTodos] = useState([]);
+  const [inputSearch, setInputSearch] = useState();
 
   const getUserData = () => {
     fetch(`${baseUrl}/user/profile`, {
@@ -57,8 +59,12 @@ function App() {
         setUserData={setUserData}
         allTodos={allTodos}
         setFilteredTodos={setFilteredTodos}
+        openDrawer={openDrawer}
+        setOpenDrawer={setOpenDrawer}
         activeDrawerButton={activeDrawerButton}
         setActiveDrawerButton={setActiveDrawerButton}
+        inputSearch={inputSearch}
+        setInputSearch={setInputSearch}
       />
       <Routes>
         <Route
@@ -68,7 +74,9 @@ function App() {
               userData={userData}
               filteredTodos={filteredTodos}
               getAllTodos={getAllTodos}
+              openDrawer={openDrawer}
               activeDrawerButton={activeDrawerButton}
+              inputSearch={inputSearch}
             />
           }
         />

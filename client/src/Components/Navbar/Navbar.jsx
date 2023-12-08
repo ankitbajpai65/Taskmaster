@@ -68,15 +68,17 @@ export default function Navbar({
     setUserData,
     allTodos,
     setFilteredTodos,
+    openDrawer,
+    setOpenDrawer,
     activeDrawerButton,
     setActiveDrawerButton,
+    inputSearch,
+    setInputSearch
 }) {
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin");
     const [anchorEl, setAnchorEl] = useState(null);
-    const [inputSearch, setInputSearch] = useState();
     const open = Boolean(anchorEl);
-    const [openDrawer, setOpenDrawer] = React.useState(false);
 
     const handleDrawerToggle = () => {
         isLogin ? setOpenDrawer(!openDrawer) : navigate('/login')
@@ -102,6 +104,7 @@ export default function Navbar({
 
     const handleSearchTodo = (e) => {
         const searchTerm = e.target.value.toLowerCase();
+        setInputSearch(searchTerm);
 
         const activeTodos = allTodos.filter((todo) => !todo.is_trash);
         const trashedTodos = allTodos.filter((todo) => todo.is_trash);
