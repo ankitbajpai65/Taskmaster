@@ -317,7 +317,7 @@ const Home = ({
                                                 </Typography>
                                             </div>
                                         ) : (
-                                            inputSearch.length > 0 ? (
+                                            inputSearch?.length > 0 ? (
                                                 <h1>No todo found</h1>
                                             ) : (
                                                 <>

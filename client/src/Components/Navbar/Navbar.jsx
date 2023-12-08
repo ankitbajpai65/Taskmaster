@@ -100,6 +100,7 @@ export default function Navbar({
 
     useEffect(() => {
         getUserData();
+        console.clear();
     }, []);
 
     const handleSearchTodo = (e) => {
